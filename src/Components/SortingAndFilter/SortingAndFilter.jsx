@@ -8,20 +8,20 @@ export const SortingAndFilter = ({
 }) => {
   return (
     <div>
-      <div>
+      <div className="sorting-cont">
         <button
           onClick={() => {
             handleSortAZ();
           }}
         >
-          filter by country A-Z
+          Filter country A-Z
         </button>
         <button
           onClick={() => {
             handleSortZA();
           }}
         >
-          filter by country Z-A
+          Filter The Country
         </button>
 
         <button
@@ -29,14 +29,14 @@ export const SortingAndFilter = ({
             handlePopOne();
           }}
         >
-          SortByPopulation 0-100(ASC)
+          SortByPopulation(ASC)
         </button>
         <button
           onClick={() => {
             handlePopNine();
           }}
         >
-          SortByPopulation 100-0(DSC)
+          SortByPopulation (DSC)
         </button>
       </div>
     </div>

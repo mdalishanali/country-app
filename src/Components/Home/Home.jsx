@@ -1,22 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { SortingAndFilter } from "../SortingAndFilter/SortingAndFilter";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { store } from "../../Redux/store";
+import { setCountry } from "../../Redux/Country/action";
+import CircularIndeterminate from "../Loader/Loader";
+import { Table } from "../Table/Table";
+
 export const Home = () => {
-  const [data, setData] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getReq();
-  }, []);
+  }, [dispatch]);
 
   const getReq = () => {
     setLoading(true);
+
     axios
-      .get("http://localhost:8080/data")
+      .get("http://localhost:8080/cities")
       .then(({ data }) => {
-        setData(data);
-        console.log("ali", data);
+        dispatch(setCountry(data));
       })
       .catch((err) => {
         setError(true);
@@ -24,42 +30,56 @@ export const Home = () => {
       .finally(() => {
         setTimeout(() => {
           setLoading(false);
-        }, 0);
+        }, 1000);
       });
   };
+  const cityData = useSelector((store) => store);
+
   const handleSortAZ = () => {
-    const sortedData = [...data].sort((a, b) => {
+    const sortedData = [...cityData].sort((a, b) => {
       return a.Country > b.Country ? 1 : -1;
     });
-    setData(sortedData);
+    dispatch(setCountry(sortedData));
   };
   const handleSortZA = () => {
-    const sortedData = [...data].sort((a, b) => {
+    const sortedData = [...cityData].sort((a, b) => {
       return a.Country > b.Country ? -1 : 1;
     });
-    setData(sortedData);
+    dispatch(setCountry(sortedData));
   };
 
   const handlePopOne = () => {
-    const sortedData = [...data].sort((a, b) => {
+    const sortedData = [...cityData].sort((a, b) => {
       return a.Population > b.Population ? 1 : -1;
     });
-    setData(sortedData);
+    dispatch(setCountry(sortedData));
   };
   const handlePopNine = () => {
-    const sortedData = [...data].sort((a, b) => {
+    const sortedData = [...cityData].sort((a, b) => {
       return a.Population > b.Population ? -1 : 1;
     });
-    setData(sortedData);
+    dispatch(setCountry(sortedData));
   };
 
   const handleDelte = (id) => {
-    axios.delete(`http://localhost:8080/data/${id}`).then(({ data }) => {
-      setData(data);
-    });
+    setLoading(true);
+    axios
+      .delete(`http://localhost:8080/cities/${id}`)
+      .then(({ data }) => {
+        // setData(data);
+        getReq();
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 3000);
+      });
   };
+
   return loading ? (
-    <div>I am Loaing</div>
+    <div>
+      <CircularIndeterminate />
+    </div>
   ) : error ? (
     <div>Eroor</div>
   ) : (
@@ -70,33 +90,7 @@ export const Home = () => {
         handleSortAZ={handleSortAZ}
         handleSortZA={handleSortZA}
       />
-      <table>
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>Country</th>
-            <th>City</th>
-            <th>Population</th>
-            <th>Edit</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data &&
-            data.map((e) => {
-              return (
-                <tr key={e.id}>
-                  <td>{e.id}</td>
-                  <td>{e.Country}</td>
-                  <td>{e.City}</td>
-                  <td>{e.Population}</td>
-                  <td>Edit</td>
-                  <td onClick={() => handleDelte(e.id)}>{"Delete"}</td>
-                </tr>
-              );
-            })}
-        </tbody>
-      </table>
+      <Table handleDelte={handleDelte} />
     </div>
   );
 };
