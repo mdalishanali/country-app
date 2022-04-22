@@ -1,22 +1,16 @@
 {
   "cities": [
     {
-      "id": 6,
-      "Country": "Brazil",
-      "City": "Chicago",
-      "Population": 2920000
+      "Country": "China",
+      "City": "adsfsa",
+      "Population": "457",
+      "id": 7
     },
     {
-      "id": 3,
-      "Country": "USA",
-      "City": "Chicago",
-      "Population": 2920000
-    },
-    {
-      "id": 4,
-      "Country": "Ali",
-      "City": "Chicago",
-      "Population": 2920000
+      "Country": "China",
+      "City": "afdasdf",
+      "Population": "43545235324",
+      "id": 8
     }
   ],
   "country": [
@@ -31,6 +25,18 @@
     {
       "id": 3,
       "country": "China"
+    },
+    {
+      "country": "japan",
+      "id": 4
+    },
+    {
+      "country": "Bangladesh",
+      "id": 5
+    },
+    {
+      "country": "",
+      "id": 6
     }
   ]
 }

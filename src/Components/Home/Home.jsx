@@ -6,12 +6,34 @@ import { store } from "../../Redux/store";
 import { setCountry } from "../../Redux/Country/action";
 import CircularIndeterminate from "../Loader/Loader";
 import { Table } from "../Table/Table";
+import { AddCountry } from "../AddCountry/AddCountry";
+import { Link } from "react-router-dom";
 
+///
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+///
 export const Home = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
+  ///
+  const [open, setOpen] = React.useState(false);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  ///
   useEffect(() => {
     getReq();
   }, [dispatch]);
@@ -84,12 +106,26 @@ export const Home = () => {
     <div>Eroor</div>
   ) : (
     <div>
+      <Link to={"/add-country"}>
+        <Button variant="outlined" onClick={handleClickOpen}>
+          Add Country
+        </Button>
+      </Link>
+
+      <Link to="/add-city">
+        <Button variant="outlined">Add City</Button>
+      </Link>
       <SortingAndFilter
         handlePopNine={handlePopNine}
         handlePopOne={handlePopOne}
         handleSortAZ={handleSortAZ}
         handleSortZA={handleSortZA}
       />
+      <div>
+        <Link to="/add-country">
+          <button>Add Country</button>{" "}
+        </Link>
+      </div>
       <Table handleDelte={handleDelte} />
     </div>
   );

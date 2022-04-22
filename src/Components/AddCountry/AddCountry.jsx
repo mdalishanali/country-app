@@ -9,12 +9,18 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 export const AddCountry = () => {
-  const [country, setCountry] = useState("");
-  console.log(country);
-  const Add_Country = () => {
-    axios.post("http://localhost:8080/country");
+  const initState = {
+    country: "",
   };
-  const [open, setOpen] = React.useState(false);
+  const [country, setCountry] = useState(initState);
+  console.log(country);
+
+  const Add_Country = () => {
+    axios.post("http://localhost:8080/country", country).then((res) => {
+      console.log(res);
+    });
+  };
+  const [open, setOpen] = React.useState(true);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -24,40 +30,40 @@ export const AddCountry = () => {
     setOpen(false);
   };
 
+  const handleChange = (e) => {
+    let { name, value } = e.target;
+    setCountry({ [name]: value });
+  };
   return (
     <div>
-      <h1>country</h1>
-      <input
-        type="text"
-        onChange={(e) => setCountry(e.target.value)}
-        placeholder="enter country name"
-      />
-      <br />
-      <button>Add Country</button>
       <div>
-        <Button variant="outlined" onClick={handleClickOpen}>
-          Open form dialog
-        </Button>
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Subscribe</DialogTitle>
+          <DialogTitle>Add Country</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              To subscribe to this website, please enter your email address
-              here. We will send updates occasionally.
+              To Add Country to this website, please enter your Country ....
             </DialogContentText>
-            <TextField
+            <textarea
               autoFocus
               margin="dense"
               id="name"
-              label="Email Address"
-              type="email"
               fullWidth
               variant="standard"
+              type="text"
+              name="country"
+              onChange={handleChange}
+              placeholder="enter country name"
             />
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleClose}>Subscribe</Button>
+            <Button
+              onClick={() => {
+                Add_Country();
+              }}
+            >
+              Add Country
+            </Button>
           </DialogActions>
         </Dialog>
       </div>

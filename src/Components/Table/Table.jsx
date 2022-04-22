@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-export const Table = ({ handleDelte }) => {
+export const  Table = ({ handleDelte }) => {
   const cityData = useSelector((store) => store);
   console.log("cityData", cityData);
   return (
