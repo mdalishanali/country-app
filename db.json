@@ -1,16 +1,28 @@
 {
   "cities": [
     {
-      "Country": "China",
-      "City": "adsfsa",
-      "Population": "457",
-      "id": 7
+      "Country": "Bangladesh",
+      "City": "London",
+      "Population": "300000",
+      "id": 1
     },
     {
-      "Country": "China",
-      "City": "afdasdf",
-      "Population": "43545235324",
-      "id": 8
+      "Country": "India",
+      "City": "Gorakhpur",
+      "Population": "350000",
+      "id": 2
+    },
+    {
+      "Country": "India",
+      "City": "Kanpur",
+      "Population": "25252",
+      "id": 3
+    },
+    {
+      "Country": "India",
+      "City": "Bengalore",
+      "Population": "25158582625525",
+      "id": 4
     }
   ],
   "country": [
@@ -35,7 +47,7 @@
       "id": 5
     },
     {
-      "country": "",
+      "country": "India",
       "id": 6
     }
   ]

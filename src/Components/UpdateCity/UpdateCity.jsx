@@ -2,8 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-export const AddCity = () => {
+export const UpdateCity = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
+  console.log("fuuu", id);
   const initState = {
     Country: "",
     City: "",
@@ -18,31 +20,18 @@ export const AddCity = () => {
     });
   }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    addCities();
-  };
-
-  const addCities = async () => {
-    try {
-      await fetch("http://localhost:8080/cities", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+  const handleUpdate = () => {
+    axios.patch(`http://localhost:8080/cities/${id}`, data).then(() => {
       console.log(data);
       navigate("/");
-      setData({
-        Country: "",
-        City: "",
-        Population: null,
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    });
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleUpdate();
+  };
+
   const handleChange = (e) => {
     let { name, value } = e.target;
     setData({ ...data, [name]: value });
@@ -50,7 +39,7 @@ export const AddCity = () => {
   return (
     <div>
       <div>
-        <h1>Add City</h1>
+        <h1>EDIT City</h1>
         <form action="" onSubmit={handleSubmit}>
           <input
             type="text"
@@ -78,7 +67,7 @@ export const AddCity = () => {
             name="Population"
           />
           <br />
-          <input type="submit" value="ADD CITY" />
+          <input type="submit" value="EDIT CITY" />
         </form>
       </div>
     </div>

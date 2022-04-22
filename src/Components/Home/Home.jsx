@@ -121,11 +121,7 @@ export const Home = () => {
         handleSortAZ={handleSortAZ}
         handleSortZA={handleSortZA}
       />
-      <div>
-        <Link to="/add-country">
-          <button>Add Country</button>{" "}
-        </Link>
-      </div>
+      <div></div>
       <Table handleDelte={handleDelte} />
     </div>
   );

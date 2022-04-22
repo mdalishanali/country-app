@@ -8,16 +8,17 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { useNavigate } from "react-router-dom";
 export const AddCountry = () => {
   const initState = {
     country: "",
   };
+  const navigate = useNavigate();
   const [country, setCountry] = useState(initState);
   console.log(country);
-
   const Add_Country = () => {
     axios.post("http://localhost:8080/country", country).then((res) => {
-      console.log(res);
+      navigate("/");
     });
   };
   const [open, setOpen] = React.useState(true);
@@ -28,6 +29,7 @@ export const AddCountry = () => {
 
   const handleClose = () => {
     setOpen(false);
+    navigate("/");
   };
 
   const handleChange = (e) => {
@@ -53,6 +55,7 @@ export const AddCountry = () => {
               name="country"
               onChange={handleChange}
               placeholder="enter country name"
+              required
             />
           </DialogContent>
           <DialogActions>

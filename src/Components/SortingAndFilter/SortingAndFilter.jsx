@@ -29,14 +29,14 @@ export const SortingAndFilter = ({
             handlePopOne();
           }}
         >
-          SortByPopulation(ASC)
+          SortByPopulation (DSC)
         </button>
         <button
           onClick={() => {
             handlePopNine();
           }}
         >
-          SortByPopulation (DSC)
+          SortByPopulation(ASC)
         </button>
       </div>
     </div>

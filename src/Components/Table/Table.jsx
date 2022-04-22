@@ -1,9 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-export const  Table = ({ handleDelte }) => {
+export const Table = ({ handleDelte }) => {
   const cityData = useSelector((store) => store);
-  console.log("cityData", cityData);
+
   return (
     <div>
       <table>
@@ -26,7 +27,9 @@ export const  Table = ({ handleDelte }) => {
                   <td>{e.Country}</td>
                   <td>{e.City}</td>
                   <td>{e.Population}</td>
-                  <td>Edit</td>
+                  <Link to={`/editCity/${e.id}`}>
+                    <td>Edit</td>
+                  </Link>
                   <td onClick={() => handleDelte(e.id)}>
                     {" "}
                     <button>{"Delete"} </button>
